@@ -1,18 +1,22 @@
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const authRoutes = require('./routes/Auth/authRoutes');
 const jobRoutes = require("./routes/jobRoutes")
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
+const errorMiddleware = require('./middleware/errorMiddleware');
 
+const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
 
 // Middleware
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: [
+    "http://localhost:5173",
+    "https://hiretrack-shubhojit.vercel.app/" 
+  ],
     credentials: true,
 }));
 
@@ -30,7 +34,9 @@ app.get('/', (req, res) => {
 app.use("/api/auth",authRoutes);
 app.use("/api/job",jobRoutes);
 
-const PORT = process.env.PORT || 4000;
+app.use(errorMiddleware)
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
     console.log(`Server running on port http://localhost:${PORT}`);

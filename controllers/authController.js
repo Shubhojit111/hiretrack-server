@@ -34,7 +34,7 @@ const RegisterUser=async(req,res)=>
         res.cookie("token",token,{
             httpOnly:true,
             secure:true,
-            sameSite: "lax",
+            sameSite: "none",
         });
 
         return res.status(200).json({
@@ -79,7 +79,7 @@ const loginUser=async(req,res)=>{
         res.cookie("token",token,{
             httpOnly:true,
             secure:true,
-            sameSite: "lax",
+            sameSite: "none",
         });
 
         return res.status(200).json({
@@ -98,7 +98,7 @@ const LogoutUser=async(req,res)=>{
         res.cookie("token","",{
             httpOnly:true,
             secure:true,
-            sameSite: "lax",
+            sameSite: "none",
         });
         return res.status(200).json({message:"User logged out successfully"});
     }catch(error){
@@ -107,4 +107,13 @@ const LogoutUser=async(req,res)=>{
     }
 }
 
-module.exports={RegisterUser,loginUser,LogoutUser};
+const checkAuth = async (req, res) => { 
+  try {
+    // If we reach here, the token is valid and attached to req.user
+    return res.status(200).json({ authorized: true, user: req.user });
+  } catch (error) {
+    return res.status(401).json({ authorized: false, message: "Unauthorized" });
+  }
+};
+
+module.exports={RegisterUser,loginUser,LogoutUser,checkAuth};

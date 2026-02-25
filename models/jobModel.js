@@ -12,7 +12,7 @@ const jobSchema = new mongoose.Schema(
     },
     link:{
         type:String,
-        required:true
+        // required:true
     },
     salary: {
       type: String,
@@ -20,19 +20,19 @@ const jobSchema = new mongoose.Schema(
     },
     location:{
         type:String,
-        required:true
+        // required:true
     },
     status: {
       type: String,
-      enum: ["Applied", "Interview", "Rejected", "Offered"],
-      default: "Applied",
+      enum: ["Applied", "Interview", "Rejected", "Offered","Saved"],
+      default: "Saved",
     },
-    // user: {
-      //   type: mongoose.Schema.Types.ObjectId,
-      //   ref: "User",
-      //   required: true,
-      //
-    // },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      
+    },
   },
   { timestamps: true },
 );
