@@ -14,7 +14,7 @@ const app = express();
 // Middleware
 app.use(cors({
     origin: [
-    "https://hiretrack-shubhojit.vercel.app/" 
+    "https://hiretrack-shubhojit.vercel.app" 
   ],
     credentials: true,
 }));
