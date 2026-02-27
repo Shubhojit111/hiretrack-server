@@ -14,6 +14,7 @@ const app = express();
 // Middleware
 app.use(cors({
     origin: [
+    "http://localhost:5173",
     "https://hiretrack-shubhojit.vercel.app" 
   ],
     credentials: true,
