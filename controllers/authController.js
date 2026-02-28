@@ -56,18 +56,21 @@ const loginUser=async(req,res)=>{
         if(!email || !password)
         {
             return res.status(400).json({message:"All fields are required"});
+            console.log("All fields are required");
         }
         
         const user=await userModel.findOne({email});
         if(!user)
         {
             return res.status(400).json({message:"User not found"});
+            console.log("User not found");
         }
 
         const isMatch=await bcrypt.compare(password,user.password);
         if(!isMatch)
         {
             return res.status(400).json({message:"Invalid credentials"});
+            console.log("Invalid credentials");
         }
 
         const token=jwt.sign({
