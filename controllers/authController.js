@@ -38,6 +38,7 @@ const RegisterUser = async (req, res) => {
       httpOnly: true,
       secure: isProduction,
       sameSite: isProduction ? "none" : "lax",
+      maxAge: 60 * 60 * 1000, // 1 hour
     });
 
     return res.status(200).json({
@@ -86,6 +87,7 @@ const loginUser = async (req, res) => {
       httpOnly: true,
       secure: isProduction,
       sameSite: isProduction ? "none" : "lax",
+      maxAge: 60 * 60 * 1000, // 1 hour
     });
 
     console.log("User logged in successfully");
@@ -107,6 +109,7 @@ const LogoutUser = async (req, res) => {
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
+    console.log("User logged out successfully");
     return res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
     console.log(error.message);
