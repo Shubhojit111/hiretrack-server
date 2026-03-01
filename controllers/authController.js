@@ -32,14 +32,12 @@ const RegisterUser = async (req, res) => {
       { expiresIn: "1h" },
     );
 
-    const isProduction = process.env.NODE_ENV === "production";
-
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
-      maxAge: 60 * 60 * 1000, // 1 hour
-    });
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 60 * 60 * 1000,
+      });
 
     return res.status(200).json({
       message: "User registered successfully",
@@ -81,14 +79,13 @@ const loginUser = async (req, res) => {
       { expiresIn: "1h" },
     );
 
-    const isProduction = process.env.NODE_ENV === "production";
 
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
-      maxAge: 60 * 60 * 1000, // 1 hour
-    });
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 60 * 60 * 1000,
+      });
 
     console.log("User logged in successfully");
 
